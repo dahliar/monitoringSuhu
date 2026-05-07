@@ -1,15 +1,17 @@
 <x-layouts.app title="Tambah Device">
-    <div class="mb-6">
-        <h1 class="flex items-center gap-2 text-2xl font-semibold">
-            <i data-lucide="cpu" class="h-6 w-6 text-emerald-700"></i>
+    <div class="mb-4">
+        <h1 class="d-flex align-items-center gap-2 h3 mb-1 fw-semibold">
+            <i data-lucide="cpu" class="text-success"></i>
             <span>Tambah Device</span>
         </h1>
-        <p class="mt-1 text-sm text-zinc-600">Masukkan data perangkat pemantauan suhu.</p>
+        <p class="text-secondary mb-0">Masukkan data perangkat pemantauan suhu.</p>
     </div>
 
-    <div class="rounded-md border border-zinc-200 bg-white p-6 shadow-sm">
-        <form action="{{ route('devices.store') }}" method="POST">
-            @include('devices._form')
-        </form>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+            <form action="{{ route('devices.store') }}" method="POST">
+                @include('devices._form')
+            </form>
+        </div>
     </div>
 </x-layouts.app>

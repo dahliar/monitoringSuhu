@@ -1,5 +1,8 @@
 import $ from 'jquery';
-import DataTable from 'datatables.net-dt';
+import DataTable from 'datatables.net-bs5';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'datatables.net-bs5/css/dataTables.bootstrap5.css';
 import {
     ArrowLeft,
     CircleAlert,
@@ -27,7 +30,6 @@ import {
     X,
     createIcons,
 } from 'lucide';
-import 'datatables.net-dt/css/dataTables.dataTables.css';
 
 window.$ = $;
 window.jQuery = $;

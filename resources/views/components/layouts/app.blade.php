@@ -7,145 +7,123 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body class="bg-zinc-100 text-zinc-900 antialiased">
+<body class="app-shell text-body">
     @php
-        $menuItem = 'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition';
-        $activeItem = 'bg-emerald-50 text-emerald-800';
-        $inactiveItem = 'text-zinc-700 hover:bg-zinc-100 hover:text-zinc-950';
+        $navLink = 'nav-link d-flex align-items-center gap-2 rounded-3 px-3 py-2';
+        $activeLink = 'active bg-success-subtle text-success-emphasis';
+        $inactiveLink = 'text-body-secondary';
     @endphp
 
-    <div class="min-h-screen">
-        <header class="sticky top-0 z-20 border-b border-zinc-200 bg-white">
-            <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
-                <a href="{{ auth()->check() ? route('devices.index') : url('/') }}" class="flex items-center gap-2 text-lg font-semibold">
-                    <i data-lucide="thermometer-sun" class="h-5 w-5 text-emerald-700"></i>
-                    <span>Monitoring Suhu</span>
-                </a>
+    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm">
+        <div class="container-fluid px-3 px-lg-4">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-semibold" href="{{ auth()->check() ? route('devices.index') : url('/') }}">
+                <i data-lucide="thermometer-sun" class="text-success"></i>
+                <span>Monitoring Suhu</span>
+            </a>
 
-                <div class="flex items-center gap-3">
-                    @auth
-                        <div class="hidden text-right sm:block">
-                            <p class="text-sm font-medium text-zinc-900">{{ auth()->user()->name }}</p>
-                            <p class="text-xs text-zinc-500">{{ auth()->user()->email }}</p>
-                        </div>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="inline-flex items-center gap-2 rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
-                                <i data-lucide="log-out" class="h-4 w-4"></i>
-                                <span>Logout</span>
-                            </button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-                            <i data-lucide="log-in" class="h-4 w-4"></i>
-                            <span>Login</span>
-                        </a>
-                    @endauth
-                </div>
-            </div>
-        </header>
+            @auth
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            @endauth
 
-        <div class="lg:flex">
-        <aside class="hidden w-64 shrink-0 border-r border-zinc-200 bg-white lg:flex lg:min-h-[calc(100vh-73px)] lg:flex-col">
-            <nav class="flex-1 space-y-1 px-3 py-4">
+            <div class="d-none d-lg-flex align-items-center gap-3 ms-auto">
                 @auth
-                    <a href="{{ route('rooms.index') }}" class="{{ $menuItem }} {{ request()->routeIs('rooms.*') ? $activeItem : $inactiveItem }}">
-                        <i data-lucide="door-open" class="h-4 w-4"></i>
-                        <span>Ruangan</span>
-                    </a>
-
-                    <a href="{{ route('devices.index') }}" class="{{ $menuItem }} {{ request()->routeIs('devices.*') ? $activeItem : $inactiveItem }}">
-                        <i data-lucide="cpu" class="h-4 w-4"></i>
-                        <span>Device</span>
-                    </a>
-
-                    <a href="{{ route('temperature-readings.index') }}" class="{{ $menuItem }} {{ request()->routeIs('temperature-readings.*') ? $activeItem : $inactiveItem }}">
-                        <i data-lucide="thermometer" class="h-4 w-4"></i>
-                        <span>Data Suhu</span>
-                    </a>
-
-                    @if (auth()->user()->isAdmin())
-                        <a href="{{ route('users.index') }}" class="{{ $menuItem }} {{ request()->routeIs('users.*') ? $activeItem : $inactiveItem }}">
-                            <i data-lucide="users" class="h-4 w-4"></i>
-                            <span>User</span>
-                        </a>
-
-                        <a href="{{ route('api-tokens.index') }}" class="{{ $menuItem }} {{ request()->routeIs('api-tokens.*') ? $activeItem : $inactiveItem }}">
-                            <i data-lucide="key-round" class="h-4 w-4"></i>
-                            <span>API Token</span>
-                        </a>
-                    @endif
+                    <div class="text-end">
+                        <div class="fw-semibold">{{ auth()->user()->name }}</div>
+                        <div class="small text-body-secondary">{{ auth()->user()->email }}</div>
+                    </div>
+                    <form action="{{ route('logout') }}" method="POST" class="mb-0">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2">
+                            <i data-lucide="log-out" class="small"></i>
+                            <span>Logout</span>
+                        </button>
+                    </form>
                 @else
-                    <a href="{{ route('login') }}" class="{{ $menuItem }} {{ request()->routeIs('login') ? $activeItem : $inactiveItem }}">
-                        <i data-lucide="log-in" class="h-4 w-4"></i>
+                    <a href="{{ route('login') }}" class="btn btn-success d-inline-flex align-items-center gap-2">
+                        <i data-lucide="log-in" class="small"></i>
                         <span>Login</span>
                     </a>
                 @endauth
-            </nav>
-        </aside>
+            </div>
+        </div>
+    </nav>
 
-        <div class="min-w-0 flex-1">
-            <div class="border-b border-zinc-200 bg-white lg:hidden">
-                @auth
-                    <nav class="flex gap-2 overflow-x-auto px-4 py-3">
-                        <a href="{{ route('rooms.index') }}" class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('rooms.*') ? $activeItem : $inactiveItem }}">
-                            <i data-lucide="door-open" class="h-4 w-4"></i>
+    <div class="d-flex">
+        @auth
+            <aside class="offcanvas-lg offcanvas-start sidebar bg-white border-end" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
+                <div class="offcanvas-header border-bottom">
+                    <h5 class="offcanvas-title" id="sidebarNavLabel">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarNav" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body p-3">
+                    <nav class="nav nav-pills flex-column gap-1">
+                        <a href="{{ route('rooms.index') }}" class="{{ $navLink }} {{ request()->routeIs('rooms.*') ? $activeLink : $inactiveLink }}">
+                            <i data-lucide="door-open" class="small"></i>
                             <span>Ruangan</span>
                         </a>
-                        <a href="{{ route('devices.index') }}" class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('devices.*') ? $activeItem : $inactiveItem }}">
-                            <i data-lucide="cpu" class="h-4 w-4"></i>
+                        <a href="{{ route('devices.index') }}" class="{{ $navLink }} {{ request()->routeIs('devices.*') ? $activeLink : $inactiveLink }}">
+                            <i data-lucide="cpu" class="small"></i>
                             <span>Device</span>
                         </a>
-                        <a href="{{ route('temperature-readings.index') }}" class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('temperature-readings.*') ? $activeItem : $inactiveItem }}">
-                            <i data-lucide="thermometer" class="h-4 w-4"></i>
+                        <a href="{{ route('temperature-readings.index') }}" class="{{ $navLink }} {{ request()->routeIs('temperature-readings.*') ? $activeLink : $inactiveLink }}">
+                            <i data-lucide="thermometer" class="small"></i>
                             <span>Data Suhu</span>
                         </a>
                         @if (auth()->user()->isAdmin())
-                            <a href="{{ route('users.index') }}" class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('users.*') ? $activeItem : $inactiveItem }}">
-                                <i data-lucide="users" class="h-4 w-4"></i>
-                                <span>Manajemen User</span>
+                            <a href="{{ route('users.index') }}" class="{{ $navLink }} {{ request()->routeIs('users.*') ? $activeLink : $inactiveLink }}">
+                                <i data-lucide="users" class="small"></i>
+                                <span>User</span>
                             </a>
-                            <a href="{{ route('api-tokens.index') }}" class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('api-tokens.*') ? $activeItem : $inactiveItem }}">
-                                <i data-lucide="key-round" class="h-4 w-4"></i>
+                            <a href="{{ route('api-tokens.index') }}" class="{{ $navLink }} {{ request()->routeIs('api-tokens.*') ? $activeLink : $inactiveLink }}">
+                                <i data-lucide="key-round" class="small"></i>
                                 <span>API Token</span>
                             </a>
                         @endif
+                        <form action="{{ route('logout') }}" method="POST" class="mt-3">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2">
+                                <i data-lucide="log-out" class="small"></i>
+                                <span>Logout</span>
+                            </button>
+                        </form>
                     </nav>
-                @endauth
-            </div>
-
-            <main class="px-4 py-8 sm:px-6 lg:px-8">
-                <div class="mx-auto max-w-7xl">
-                    @if (session('success'))
-                        <div class="mb-6 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                            <i data-lucide="circle-check" class="mr-2 inline h-4 w-4"></i>
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if (session('api_token'))
-                        <div class="mb-6 rounded-md border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-                            <div class="flex items-center gap-2 font-medium">
-                                <i data-lucide="key-round" class="h-4 w-4"></i>
-                                <span>Token baru hanya ditampilkan sekali.</span>
-                            </div>
-                            <code class="mt-3 block break-all rounded bg-white px-3 py-2 text-zinc-900">{{ session('api_token') }}</code>
-                        </div>
-                    @endif
-
-                    @if ($errors->has('user'))
-                        <div class="mb-6 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
-                            <i data-lucide="circle-alert" class="mr-2 inline h-4 w-4"></i>
-                            {{ $errors->first('user') }}
-                        </div>
-                    @endif
-
-                    {{ $slot }}
                 </div>
-            </main>
-        </div>
-        </div>
+            </aside>
+        @endauth
+
+        <main class="content-shell flex-grow-1 p-3 p-lg-4">
+            <div class="container-fluid px-0">
+                @if (session('success'))
+                    <div class="alert alert-success d-flex align-items-center gap-2" role="alert">
+                        <i data-lucide="circle-check"></i>
+                        <div>{{ session('success') }}</div>
+                    </div>
+                @endif
+
+                @if (session('api_token'))
+                    <div class="alert alert-warning" role="alert">
+                        <div class="d-flex align-items-center gap-2 fw-semibold mb-2">
+                            <i data-lucide="key-round"></i>
+                            <span>Token baru hanya ditampilkan sekali.</span>
+                        </div>
+                        <code class="d-block text-break bg-white border rounded p-2">{{ session('api_token') }}</code>
+                    </div>
+                @endif
+
+                @if ($errors->has('user'))
+                    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+                        <i data-lucide="circle-alert"></i>
+                        <div>{{ $errors->first('user') }}</div>
+                    </div>
+                @endif
+
+                {{ $slot }}
+            </div>
+        </main>
     </div>
+
     @stack('scripts')
 </body>
 </html>

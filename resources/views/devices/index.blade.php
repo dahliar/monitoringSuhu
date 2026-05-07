@@ -1,32 +1,34 @@
 <x-layouts.app title="Data Device">
-    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
         <div>
-            <h1 class="flex items-center gap-2 text-2xl font-semibold">
-                <i data-lucide="cpu" class="h-6 w-6 text-emerald-700"></i>
+            <h1 class="h3 mb-1 d-flex align-items-center gap-2">
+                <i data-lucide="cpu" class="text-success"></i>
                 <span>Data Device</span>
             </h1>
-            <p class="mt-1 text-sm text-zinc-600">Kelola perangkat tanpa menghapus data historis.</p>
+            <p class="text-muted mb-0">Kelola perangkat tanpa menghapus data historis.</p>
         </div>
-        <a href="{{ route('devices.create') }}" class="inline-flex w-fit items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            <i data-lucide="plus" class="h-4 w-4"></i>
+        <a href="{{ route('devices.create') }}" class="btn btn-success d-inline-flex align-items-center gap-2">
+            <i data-lucide="plus"></i>
             <span>Tambah Device</span>
         </a>
     </div>
 
-    <div class="overflow-hidden rounded-md border border-zinc-200 bg-white p-4 shadow-sm">
-        <div class="overflow-x-auto">
-            <table id="devices-table" class="min-w-full divide-y divide-zinc-200 text-sm">
-                <thead class="bg-zinc-50">
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Device</th>
-                        <th>Ruangan</th>
-                        <th>Min Temperatur</th>
-                        <th>Max Temperatur</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-            </table>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="devices-table" class="table table-striped table-hover align-middle w-100 mb-0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Device</th>
+                            <th>Ruangan</th>
+                            <th>Min Temperatur</th>
+                            <th>Max Temperatur</th>
+                            <th class="text-end">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 

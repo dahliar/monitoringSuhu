@@ -1,14 +1,14 @@
-<div class="flex justify-end gap-2">
-    <span class="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium {{ $device->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-zinc-100 text-zinc-700' }}">
-        <i data-lucide="{{ $device->is_active ? 'power' : 'power-off' }}" class="h-3 w-3"></i>
+<div class="d-flex justify-content-end gap-2">
+    <span class="badge rounded-pill {{ $device->is_active ? 'text-bg-success' : 'text-bg-secondary' }} d-inline-flex align-items-center gap-1 px-2 py-2">
+        <i data-lucide="{{ $device->is_active ? 'power' : 'power-off' }}"></i>
         {{ $device->is_active ? 'Aktif' : 'Nonaktif' }}
     </span>
-    <a href="{{ route('devices.show', $device) }}" class="inline-flex items-center gap-1 rounded-md border border-zinc-300 px-3 py-1.5 text-zinc-700 hover:bg-zinc-50">
-        <i data-lucide="eye" class="h-3.5 w-3.5"></i>
+    <a href="{{ route('devices.show', $device) }}" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
+        <i data-lucide="eye"></i>
         <span>Detail</span>
     </a>
-    <a href="{{ route('devices.edit', $device) }}" class="inline-flex items-center gap-1 rounded-md border border-zinc-300 px-3 py-1.5 text-zinc-700 hover:bg-zinc-50">
-        <i data-lucide="pencil" class="h-3.5 w-3.5"></i>
+    <a href="{{ route('devices.edit', $device) }}" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
+        <i data-lucide="pencil"></i>
         <span>Edit</span>
     </a>
 </div>

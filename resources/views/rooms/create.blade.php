@@ -1,15 +1,17 @@
 <x-layouts.app title="Tambah Ruangan">
-    <div class="mb-6">
-        <h1 class="flex items-center gap-2 text-2xl font-semibold">
-            <i data-lucide="door-open" class="h-6 w-6 text-emerald-700"></i>
+    <div class="mb-4">
+        <h1 class="d-flex align-items-center gap-2 h3 mb-1 fw-semibold">
+            <i data-lucide="door-open" class="text-success"></i>
             <span>Tambah Ruangan</span>
         </h1>
-        <p class="mt-1 text-sm text-zinc-600">Masukkan data ruangan untuk penempatan device.</p>
+        <p class="text-secondary mb-0">Masukkan data ruangan untuk penempatan device.</p>
     </div>
 
-    <div class="rounded-md border border-zinc-200 bg-white p-6 shadow-sm">
-        <form action="{{ route('rooms.store') }}" method="POST">
-            @include('rooms._form')
-        </form>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+            <form action="{{ route('rooms.store') }}" method="POST">
+                @include('rooms._form')
+            </form>
+        </div>
     </div>
 </x-layouts.app>

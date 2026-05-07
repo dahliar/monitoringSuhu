@@ -1,31 +1,33 @@
 <x-layouts.app title="Manajemen User">
-    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
         <div>
-            <h1 class="flex items-center gap-2 text-2xl font-semibold">
-                <i data-lucide="users" class="h-6 w-6 text-emerald-700"></i>
+            <h1 class="h3 mb-1 d-flex align-items-center gap-2">
+                <i data-lucide="users" class="text-success"></i>
                 <span>Manajemen User</span>
             </h1>
-            <p class="mt-1 text-sm text-zinc-600">Kelola akses aplikasi berdasarkan role dan status aktif.</p>
+            <p class="text-muted mb-0">Kelola akses aplikasi berdasarkan role dan status aktif.</p>
         </div>
-        <a href="{{ route('users.create') }}" class="inline-flex w-fit items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-            <i data-lucide="user-plus" class="h-4 w-4"></i>
+        <a href="{{ route('users.create') }}" class="btn btn-success d-inline-flex align-items-center gap-2">
+            <i data-lucide="user-plus"></i>
             <span>Tambah User</span>
         </a>
     </div>
 
-    <div class="overflow-hidden rounded-md border border-zinc-200 bg-white p-4 shadow-sm">
-        <div class="overflow-x-auto">
-            <table id="users-table" class="min-w-full divide-y divide-zinc-200 text-sm">
-                <thead class="bg-zinc-50">
-                    <tr>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-            </table>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="users-table" class="table table-striped table-hover align-middle w-100 mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th class="text-end">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 

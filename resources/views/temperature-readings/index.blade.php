@@ -1,51 +1,55 @@
 <x-layouts.app title="Data Suhu">
-    <div class="mb-6">
-        <h1 class="flex items-center gap-2 text-2xl font-semibold">
-            <i data-lucide="thermometer" class="h-6 w-6 text-emerald-700"></i>
+    <div class="mb-4">
+        <h1 class="h3 mb-1 d-flex align-items-center gap-2">
+            <i data-lucide="thermometer" class="text-success"></i>
             <span>Data Suhu</span>
         </h1>
-        <p class="mt-1 text-sm text-zinc-600">Data suhu yang diterima dari perangkat IoT.</p>
+        <p class="text-muted mb-0">Data suhu yang diterima dari perangkat IoT.</p>
     </div>
 
-    <div class="mb-6 rounded-md border border-zinc-200 bg-white p-4 shadow-sm">
-        <div class="grid gap-4 md:grid-cols-[1fr_1fr_auto] md:items-end">
-            <div>
-                <label for="start_date" class="block text-sm font-medium text-zinc-700">Tanggal Mulai</label>
-                <input id="start_date" type="date" class="mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500">
-            </div>
-            <div>
-                <label for="end_date" class="block text-sm font-medium text-zinc-700">Tanggal Akhir</label>
-                <input id="end_date" type="date" class="mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500">
-            </div>
-            <div class="flex gap-2">
-                <button id="filter-button" type="button" class="inline-flex items-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-                    <i data-lucide="filter" class="h-4 w-4"></i>
-                    <span>Filter</span>
-                </button>
-                <button id="reset-filter-button" type="button" class="inline-flex items-center gap-2 rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
-                    <i data-lucide="x" class="h-4 w-4"></i>
-                    <span>Reset</span>
-                </button>
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label for="start_date" class="form-label">Tanggal Mulai</label>
+                    <input id="start_date" type="date" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="end_date" class="form-label">Tanggal Akhir</label>
+                    <input id="end_date" type="date" class="form-control">
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button id="filter-button" type="button" class="btn btn-success d-inline-flex align-items-center gap-2">
+                        <i data-lucide="filter"></i>
+                        <span>Filter</span>
+                    </button>
+                    <button id="reset-filter-button" type="button" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2">
+                        <i data-lucide="x"></i>
+                        <span>Reset</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="overflow-hidden rounded-md border border-zinc-200 bg-white p-4 shadow-sm">
-        <div class="overflow-x-auto">
-            <table id="temperature-readings-table" class="min-w-full divide-y divide-zinc-200 text-sm">
-                <thead class="bg-zinc-50">
-                    <tr>
-                        <th>No</th>
-                        <th>Device</th>
-                        <th>Ruangan</th>
-                        <th>Tipe</th>
-                        <th>Suhu</th>
-                        <th>Status</th>
-                        <th>Waktu Record</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-            </table>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="temperature-readings-table" class="table table-striped table-hover align-middle w-100 mb-0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Device</th>
+                            <th>Ruangan</th>
+                            <th>Tipe</th>
+                            <th>Suhu</th>
+                            <th>Status</th>
+                            <th>Waktu Record</th>
+                            <th class="text-end">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 

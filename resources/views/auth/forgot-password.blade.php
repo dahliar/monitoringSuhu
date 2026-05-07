@@ -1,31 +1,37 @@
 <x-layouts.app title="Lupa Password">
-    <div class="mx-auto max-w-md rounded-md border border-zinc-200 bg-white p-6 shadow-sm">
-        <h1 class="flex items-center gap-2 text-2xl font-semibold">
-            <i data-lucide="key-round" class="h-6 w-6 text-emerald-700"></i>
-            <span>Lupa Password</span>
-        </h1>
-        <p class="mt-1 text-sm text-zinc-600">Masukkan email untuk menerima link reset password.</p>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="d-flex align-items-center gap-2 h3 mb-1 fw-semibold">
+                        <i data-lucide="key-round" class="text-success"></i>
+                        <span>Lupa Password</span>
+                    </h1>
+                    <p class="text-secondary mb-4">Masukkan email untuk menerima link reset password.</p>
 
-        @if (session('status'))
-            <div class="mt-5 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ session('status') }}</div>
-        @endif
+                    @if (session('status'))
+                        <div class="alert alert-success">{{ session('status') }}</div>
+                    @endif
 
-        <form action="{{ route('password.email') }}" method="POST" class="mt-6 space-y-5">
-            @csrf
-            <div>
-                <label for="email" class="block text-sm font-medium text-zinc-700">Email</label>
-                <input id="email" name="email" type="email" value="{{ old('email') }}" class="mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" autofocus>
-                @error('email') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    <form action="{{ route('password.email') }}" method="POST" class="vstack gap-3">
+                        @csrf
+                        <div>
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" name="email" type="email" value="{{ old('email') }}" class="form-control" autofocus>
+                            @error('email') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 d-inline-flex align-items-center justify-content-center gap-2">
+                            <i data-lucide="send"></i>
+                            <span>Kirim Link Reset</span>
+                        </button>
+                        <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center gap-2 text-decoration-none fw-medium text-body-secondary">
+                            <i data-lucide="arrow-left"></i>
+                            <span>Kembali ke login</span>
+                        </a>
+                    </form>
+                </div>
             </div>
-
-            <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-emerald-600 px-5 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-                <i data-lucide="send" class="h-4 w-4"></i>
-                <span>Kirim Link Reset</span>
-            </button>
-            <a href="{{ route('login') }}" class="flex items-center justify-center gap-2 text-sm font-medium text-zinc-700 hover:text-zinc-900">
-                <i data-lucide="arrow-left" class="h-4 w-4"></i>
-                <span>Kembali ke login</span>
-            </a>
-        </form>
+        </div>
     </div>
 </x-layouts.app>

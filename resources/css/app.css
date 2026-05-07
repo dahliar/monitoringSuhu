@@ -1,11 +1,41 @@
-@import 'tailwindcss';
+html,
+body {
+    min-height: 100%;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+body {
+    background:
+        radial-gradient(circle at top left, rgba(25, 135, 84, 0.08), transparent 35%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.lucide {
+    width: 1em;
+    height: 1em;
+    stroke-width: 2;
+}
+
+.app-shell {
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+}
+
+.content-shell {
+    min-width: 0;
+}
+
+.dt-container .dt-search {
+    margin-bottom: 1rem;
+}
+
+.dt-container .dt-length {
+    margin-bottom: 1rem;
+}
+
+.dt-container .dt-info,
+.dt-container .dt-paging {
+    margin-top: 1rem;
 }
