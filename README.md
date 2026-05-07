@@ -7,6 +7,127 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Panduan API Input Suhu
+
+API ini digunakan perangkat IoT untuk mengirim data pembacaan suhu ke aplikasi Monitoring Suhu.
+
+### Endpoint
+
+```http
+POST /api/temperature-readings
+```
+
+Contoh base URL lokal:
+
+```text
+http://127.0.0.1:8001/api/temperature-readings
+```
+
+### Autentikasi
+
+API menggunakan Laravel Sanctum bearer token.
+
+1. Login ke aplikasi sebagai admin.
+2. Buka menu `API Token`.
+3. Klik buat token baru.
+4. Pilih user pemilik token.
+5. Isi nama token, misalnya `Device Ruang Server`.
+6. Centang ability `Kirim data suhu` atau `temperature:write`.
+7. Simpan token yang muncul. Token hanya ditampilkan sekali.
+
+Setiap request dari device wajib mengirim header:
+
+```http
+Authorization: Bearer TOKEN_ANDA
+Accept: application/json
+Content-Type: application/json
+```
+
+### Body Request
+
+```json
+{
+  "device_id": 1,
+  "temperature": 27.45,
+  "recorded_at": "2026-05-07T13:30:00+07:00",
+  "metadata": {
+    "battery": 89,
+    "signal": -62
+  }
+}
+```
+
+Field:
+
+| Field | Wajib | Tipe | Keterangan |
+| --- | --- | --- | --- |
+| `device_id` | Ya | integer | ID device yang sudah terdaftar di aplikasi. |
+| `temperature` | Ya | numeric | Nilai suhu, valid dari `-99.99` sampai `999.99`. |
+| `recorded_at` | Tidak | date/datetime | Waktu pembacaan suhu. Disarankan dikirim agar grafik time series akurat. |
+| `metadata` | Tidak | object | Data tambahan dari perangkat, misalnya baterai, sinyal, firmware, atau sensor ID. |
+
+### Contoh cURL
+
+```bash
+curl -X POST http://127.0.0.1:8001/api/temperature-readings \
+  -H "Authorization: Bearer TOKEN_ANDA" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "device_id": 1,
+    "temperature": 27.45,
+    "recorded_at": "2026-05-07T13:30:00+07:00",
+    "metadata": {
+      "battery": 89,
+      "signal": -62
+    }
+  }'
+```
+
+### Response Berhasil
+
+Status HTTP: `201 Created`
+
+```json
+{
+  "message": "Temperature reading accepted.",
+  "data": {
+    "id": 123,
+    "device_id": 1,
+    "temperature": "27.45",
+    "recorded_at": "2026-05-07T06:30:00.000000Z"
+  }
+}
+```
+
+### Error Umum
+
+`401 Unauthorized`
+
+Token tidak dikirim, token salah, atau token sudah dicabut.
+
+`403 Forbidden`
+
+Token valid, tetapi tidak memiliki ability `temperature:write`.
+
+`422 Unprocessable Entity`
+
+Body request tidak valid. Contoh penyebab:
+
+- `device_id` tidak ada di tabel device.
+- `temperature` kosong, bukan angka, atau di luar rentang valid.
+- `recorded_at` bukan format tanggal yang valid.
+- `metadata` bukan object JSON.
+
+### Rekomendasi Pengiriman dari Device
+
+- Kirim data setiap 5 menit agar sesuai dengan grafik time series aplikasi.
+- Gunakan waktu ISO 8601 dengan timezone, misalnya `2026-05-07T13:30:00+07:00`.
+- Simpan token di konfigurasi perangkat, bukan di source code publik.
+- Jika device gagal mengirim data karena koneksi internet, simpan sementara di buffer lokal lalu kirim ulang saat koneksi pulih.
+- Untuk melihat data yang masuk, gunakan menu `Data Suhu`.
+- Untuk melihat pergerakan suhu, gunakan menu `Grafik Suhu`.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

@@ -67,9 +67,17 @@
                             <i data-lucide="cpu" class="small"></i>
                             <span>Device</span>
                         </a>
-                        <a href="{{ route('temperature-readings.index') }}" class="{{ $navLink }} {{ request()->routeIs('temperature-readings.*') ? $activeLink : $inactiveLink }}">
+                        <a href="{{ route('temperature-readings.index') }}" class="{{ $navLink }} {{ request()->routeIs('temperature-readings.index', 'temperature-readings.show') ? $activeLink : $inactiveLink }}">
                             <i data-lucide="thermometer" class="small"></i>
                             <span>Data Suhu</span>
+                        </a>
+                        <a href="{{ route('temperature-readings.chart') }}" class="{{ $navLink }} {{ request()->routeIs('temperature-readings.chart', 'temperature-readings.chart-data') ? $activeLink : $inactiveLink }}">
+                            <i data-lucide="chart-line" class="small"></i>
+                            <span>Grafik Suhu</span>
+                        </a>
+                        <a href="{{ route('api-guide') }}" class="{{ $navLink }} {{ request()->routeIs('api-guide') ? $activeLink : $inactiveLink }}">
+                            <i data-lucide="book-open" class="small"></i>
+                            <span>Panduan API</span>
                         </a>
                         @if (auth()->user()->isAdmin())
                             <a href="{{ route('users.index') }}" class="{{ $navLink }} {{ request()->routeIs('users.*') ? $activeLink : $inactiveLink }}">

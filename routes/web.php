@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('devices/{device}/deactivate', [DeviceController::class, 'deactivate'])->name('devices.deactivate');
 
     Route::resource('temperature-readings', TemperatureReadingController::class)->only(['index', 'show']);
+    Route::get('temperature-chart', [TemperatureReadingController::class, 'chart'])->name('temperature-readings.chart');
+    Route::get('temperature-chart/data', [TemperatureReadingController::class, 'chartData'])->name('temperature-readings.chart-data');
+    Route::view('api-guide', 'api-guide')->name('api-guide');
 
     Route::resource('users', UserController::class)->except(['destroy'])->middleware('admin');
     Route::patch('users/{user}/activate', [UserController::class, 'activate'])->name('users.activate')->middleware('admin');

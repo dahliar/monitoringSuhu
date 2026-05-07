@@ -39,3 +39,15 @@ body {
 .dt-container .dt-paging {
     margin-top: 1rem;
 }
+
+.temperature-chart-frame {
+    height: min(60vh, 460px);
+    min-height: 320px;
+}
+
+.chart-legend-swatch {
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+}
